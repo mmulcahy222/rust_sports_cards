@@ -17,48 +17,48 @@ For the eagle eyed viewer, each of the Inserts came from different packs of card
 
 Read the code to know what's going on, or ask me questions.
 
-Autograph /
-	"Name" = "Autograph"/
-	"Odds" = 1:72/
-AtomicRefractor /
-	"Name" = "Atomic Refractor"/
-	"Odds" = 1:244/
-PatchAutograph /
-	"Name" = "Patch Autograph"/
-	"Odds" = 1:60000/
-Plain /
-	"Name" = "Plain"/
-	"Odds" = 1:1/
-Patch /
-	"Name" = "Patch"/
-	"Odds" = 1:7500/
-Refractor /
-	"Name" = "Refactor"/
-	"Odds" = 1:72/
-Jersey /
-	"Name" = "Jersey"/
-	"Odds" = 1:2500/
-Insert(1) /
-	"Name" = "Jam City"/
-	"Odds" = 1:4/
-Insert(2) /
-	"Name" = "Season's Best"/
-	"Odds" = 1:16/
-Insert(3) /
-	"Name" = "Rock Stars"/
-	"Odds" = 1:36/
-Insert(4) /
-	"Name" = "Quick Strike"/
-	"Odds" = 1:96/
-Insert(5) /
-	"Name" = "Thunder & Lightning"/
-	"Odds" = 1:144/
-Insert(6) /
-	"Name" = "NetRageous"/
-	"Odds" = 1:288/
-Insert(7) /
-	"Name" = "Hardware"/
-	"Odds" = 1:/
+Autograph \
+	"Name" = "Autograph"\
+	"Odds" = 1:72\
+AtomicRefractor \
+	"Name" = "Atomic Refractor"\
+	"Odds" = 1:244\
+PatchAutograph \
+	"Name" = "Patch Autograph"\
+	"Odds" = 1:60000\
+Plain \
+	"Name" = "Plain"\
+	"Odds" = 1:1\
+Patch \
+	"Name" = "Patch"\
+	"Odds" = 1:7500\
+Refractor \
+	"Name" = "Refactor"\
+	"Odds" = 1:72\
+Jersey \
+	"Name" = "Jersey"\
+	"Odds" = 1:2500\
+Insert(1) \
+	"Name" = "Jam City"\
+	"Odds" = 1:4\
+Insert(2) \
+	"Name" = "Season's Best"\
+	"Odds" = 1:16\
+Insert(3) \
+	"Name" = "Rock Stars"\
+	"Odds" = 1:36\
+Insert(4) \
+	"Name" = "Quick Strike"\
+	"Odds" = 1:96\
+Insert(5) \
+	"Name" = "Thunder & Lightning"\
+	"Odds" = 1:144\
+Insert(6) \
+	"Name" = "NetRageous"\
+	"Odds" = 1:288\
+Insert(7) \
+	"Name" = "Hardware"\
+	"Odds" = 1:\
 
 
 
