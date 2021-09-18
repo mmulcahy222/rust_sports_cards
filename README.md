@@ -62,8 +62,8 @@ Insert(7)
 
 
 
-![](images/watupro_test_1.png)
-![](images/watupro_test_1.png)
+![](images/rust_card_project_1.png)
+![](images/rust_card_project_2.png)
 
 
 
