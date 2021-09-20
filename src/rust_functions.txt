@@ -1,0 +1,245 @@
+Iterator
+
+advance_by - [1,2,3,4].advance_by(2) = OK(()), iter().next = Some(&3) -
+all - [1,2,3,4].all(|&x| > 0) = True
+any - [1,2,3,4].any(|&x| > 0) = True
+by_ref - [1,2,3,4] - by_ref is like putting "&" before iter() so iter() can be used after it
+chain - [1,2,3,4] [5,6,7,8] - v1.iter.chain(v2.iter()) = [1,2,3,4,5,6,7,8]
+cloned - [1,2,3,4].cloned() - Simple copy. I guess by_ref() could also be an option if needing to reuse
+cmp - [1,2,3,4] - Compares elements of an iterator to another. Confusing - Returns Ordering enum (Less, Greater, Equal)
+cmp_by - [1,2,3,4] [1,4,9,16] - Compares elements of an iterator to another, using a lambda closure function. The lambda closure is applied on the first iterator to compare to 2nd
+collect - [1,2,3,4] - Iterator to Collection - iter().map(|x| x*2).collect() - If not using a Turbofish generics, explicitly declare the type
+copied - [1,2,3,4] - Copies elments. Unclear how different than cloned.
+count - [1,2,3,4].count() = 4
+cycle - 
+enumerate - [1,2,3,4].enumerate().next() = Some((0,&1)), Some((0,&2))
+eq - [1,2,3,4].eq([1,2,3,4].iter()) = true
+eq_by - [1,2,3,4] [1,4,9,16] - v1.iter().eq(&v2,|&x,&y| x*x=y) = true
+filter - [1,2,3,4].filter(|x| x>2) = [Some(&3),Some(&4)] (Still An Iterator)
+filter_map - [1,"NaN","four",5].filter_map(|x| x.parse.ok()) = (Iterator)[1,5]
+find - [5,6,7,8].find(|&&x| x == 6) = Some(&6) - Looks for existence of value, returns as option
+find_map - [1,"NaN","four",5].find_map(|s| s.parse.ok()) - Some(2) - returns only the first value as option
+flat_map - ["1","2","3","4"].flat_map(|s| s.chars()).collect() = ["1234"]
+flatten - ["1","2","3","4"].map(|s| s.chars()).flatten().collect() = ["1234"]
+fold - [1,2,3,4].fold(0,|acc,x| acc + x) = 6 - Similar to sum() & reduce() in other languages
+for_each - [1,2,3,4].for_each(|x| println!("{}",x)) - prints all
+fuse - [1,2,3,4] - Difficult - Will always return None after after next() reaches the first None.
+ge - [1,2,3,4].iter().ge([1].iter()) = true (unsure of how it gets it)
+gt - [1,2,3,4].iter().gt([1].iter()) = true (unsure of how it gets it)
+inspect - Put in the chain of functions to print out for filtering or other operations. Like an observer
+intersperse - [1,2,3,4].iter().intersperse(&100) = [Some(&1),Some(&100),Some(&2),Some(&100),Some(&3)] - Alternating
+intersperse_with - [1,2,3,4,5,6].iter().intersperse_with([10,11].iter().copied().next.unwrap_or("9")) = [1,10,2,11,3,9,4,9,5,9,6,9]
+is_partitioned - 
+is_sorted - [1,2,3,4].iter().is_sorted() = true
+is_sorted_by - [1,2,3,4].iter().is_sorted_by( [closure] ) = true - Looks to see if it's sorted in the order specified by function
+is_sorted_by_key - ["c","bb","aaa"].iter().is_sorted_by_key(|s| s.len())
+last - [1,2,3,4].iter().last() = Some(&4)
+le - [1,2,3,4].iter().le([1,2,3,4].iter()) = true (because all values are equal, fitting equal)
+lt - [1,2,3,4].iter().lt([1,2,3,4].iter()) = false (not less than)
+map - [1,2,3,4].iter().map(|x| 2 * x) = [Some(&2),Some(&4),Some(&6),Some(&8)] (iterator)
+map_while - [1,2,3,4].iter().map_while( <closure> ) - Don't know - Creates an iterator that both yields elements based on a predicate and maps.
+max - [1,2,3,4].iter().max() = Some(&4)
+max_by - [1,2,3,4].iter().max_by(|x,y| x.cmp(y)) = Some(&5) - Max can be relative here - MUST BE COMPARISON FUNCTION (two params in closure/lambda) COMPARED TO MAX_BY_KEY
+max_by_key - [-10,2,3,4].iter().max_by_key(|x| x.abs().unwrap()) = Some(&10) - Max can be relative here - Closure/Lambda has 1 param
+min - Same as max, but min
+min_by - Same as max, but min
+min_by_key - Same as max, but min
+ne - [1,2,3,4].iter().ne([1,2,3,5].iter()) = true --- Tests Not Equal
+nth - [5,6,7,8,9].iter().nth(1) = Some(&6) --- Gets the element by iterator 
+partial_cmp - [1.0,2.0,3.0,4.0].iter().partial_cmp([1.0,2.0,3.0,4.0].iter()) =  Some(Ordering::Equal) --- Seems it may be based on Floats?
+partial_cmp_by - [1.0,2.0,3.0,4.0].iter().partial_cmp_by([1.0,4.0,9.0,15.0], |&x,&y| x.partial_cmp(&y)) = Some(Ordering::Less)
+partition - Divides Iterators!! -- let (even,odd): (Vec<i32), Vec<i32>) =[ 1,2,3,4,5,6,7,8,9,10].iter().partition(|&n| n % 2 == 10) 
+partition_in_place - Divides Iterators, but initialized differently --- let i = [1,2,3,4,5,6,7,8,9,10].iter_mut().partition_in_place(|&n| n % 2 == 0) = 5 (index of division). Iterator turns into [1,3,5,7,9,2,4,6,8,10]
+peekable - [1,2,3,4,5].iter().peekable() = [Some(&1),Some(&2),Some(&3),Some(&4),Some(&5)] --- This also allows the peek() method that shows the next value without actually going next(), like a preview
+position - [5,6,7,8].iter().position(|%x| x == 2) = Some(6) --- Seems like nth(). If closure was x > 2, you'd have an iterator of Some(&7),Some(&8)
+product - I really don't know.
+reduce - [1,2,3,4].iter().reduce(|a,b| a >= b {a} else {b}) = Some(&20)
+rev - [4,3,2,1].iter() = [Some(&4),Some(&3),Some(&2),Some(&1)] (iterator)
+rposition - Get index from right 
+scan - [1,2,3,4].iter().scan(1,|state,&x)| {*state = *state * x; Some(-*state)}) = Some(-1),Some(-2),Some(-6),Some(-12)
+size_hint - Returns the amount of next() remaining - [1,2,3,4,5].iter().size_hint() = (3,Some(3))
+skip - [1,2,3,4].iter().skip(2) = Some(&3),Some(&4)
+skip_while - [1,2,3,4,5,6,7,8,9].iter().skip_while(|x| x % 2 = 0) = Some(&1),Some(&3),Some(&5),Some(&7),Some(&9)
+step_by - Iterator that skips over an set integer interval. [1,2,3,4].iter().step_by(4)
+sum - [1,2,3,4].iter().sum() = 6
+take - [1,2,3,4,5,6].iter().take(3) = Some(&1),Some(&2),Some(&3)
+take_while - [1,2,3,4,5,6].iter().take_while(|x| x>3) = Some(&3),Some(&4),Some(&5) = Seems way too similar to Filter()
+try_find - Applies function to the elements of iterator and returns the first true result or the first error. - [1,2,3,4,5,6].iter().try_fund(|&s| s == 3) = Ok(Some(&3)) --- Uses results
+try_fold - An iterator method that applies a function as long as it returns successfully, producing a single, final value. - [1,2,3,4,5,6].iter().try_fold(0i8, |acc, &x| acc.checked_add(x)) = Some(&6)
+try_for_each - An iterator method that applies a fallible function to each item in the iterator, stopping at the first error and returning that error.
+unzip - let (left, right): (Vec<_>, Vec<_>) = [(1, 2), (3, 4)].iter().cloned().unzip() --- left = [1,3], right = [2,4]
+zip - let mut iter = [1, 2, 3].iter().zip([4, 5, 6].iter()) = Some((&1, &4)), Some((&2, &5)), Some((&3, &6)), None
+
+
+
+
+
+
+Option
+
+and - Some(2).and(None) = None, Some(5),and(Some(8)) = Some(8)
+and_then - Some(16).and_then(|x|x*2).and_then(|x|x*2) = Some(64)
+as_deref - Some("hey".to_owned()).as_deref() = Some("hey") --- I think it dereferences a reference in or outside the option? - Converts option<T> to option<& T>
+as_deref_mut - Converts option<T> to option<&mut T>
+as_mut - Converts from &mut Option<T> to Option<&mut T>
+as_pin_mut - Converts from Pin<&mut Option<T>> to Option<Pin<&mut T>>.
+as_pin_ref - Converts from Pin<&Option<T>> to Option<Pin<&T>>.
+as_ref - Converts from &Option<T> to Option<&T>.s
+cloned - Some(&mut 12).cloned() = Some(12)
+contains - Some(2).contains(&2) = True
+copied - Some(&12).copied = Some(12)
+expect - Some(4).expect("You did error") = Some(4) --- None.except("You did error") = PANIC WITH "You did error" --- Returns the contained Some value, consuming the self value. - 
+filter - Some(2).filter(|x| x%2==0) = Some(2) --- Some(3).filter(|x|x%2==0) = None
+flatten - Some(Some(4)).flatten() = Some(4)
+get_or_insert - x = None; let r = x.get_or_insert(5); *r = 7; x = Some(7)
+get_or_insert_default - x = None; let r = x.get_or_insert_default(); x = Some(7)
+get_or_insert_with - x = None; let r = x.get_or_insert_with(|| 5); *r = 7; x = Some(7)
+insert - None.insert(4) = Some(4); opposite of unwrap
+is_none - Some(5).is_none() = false; None.is_none() = true
+is_some - Some(5).is_none() = true; None.is_none() = false
+iter - Some(2).iter() = Some(&2) //tiny iterator 
+iter_mut - Some(2).iter_mut() = Some(&2) //tiny mutable iterator 
+map - Some(String::from("GOONERY").map(|s| s.len()) = Some(7)
+map_or - Some("foo").map_or(42, |v| v.len()) = 3, None.map_or(42, |v| v.len()) = 42 
+map_or_else - Some("foo").map_or(|| 2, |v| v.len()) = 3, None.map_or(||2, |v| v.len()) = 2 
+ok_or - Some("Foo").ok_or(0) = Ok("Foo") /*returns result*/ None.ok_or(0) = Err(0)
+ok_or_else - Some("Foo").ok_or_else(||4) = Ok("Foo") /*returns result*/ None.ok_or_else(||4) = Err(0)
+or - Some(2).or(None) = Some(2) /*if there's a some anywhere, it's always some
+or_else - None.or_else(|| Some("Goon")) = Some("Goon")
+replace - Some(2).replace(5) = Some(5)
+take - let mut a = Some(4); let y = a.take(), a is None (reference), y = Some(4) /*think of it like POP*/
+transpose - Ok(Some(5)).transpose() = Some(Ok(5))
+unwrap - Some(2).unwrap() = 2
+unwrap_or - None.unwrap_or("Goon") = "Goon"
+unwrap_or_default - Instance.unwrap_or_default() = <the default value, has no parametter) 
+unwrap_or_else - Some(2).unwrap_or_else(|x| x * 2) = Some(4)
+unwrap_unchecked - Returns the contained Some value, consuming the self value, without checking that the value is not None. 
+xor - Some(4).xor(None) = Some(4) (If different, SOME is returned. If SAME, it's false)
+zip - Some(5).zip(Some(6)) = Some((5,6))
+zip_with - Some(5).zip_with(Some(6),|x,y| Point{x,y})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+String
+
+as_bytes - String::from("hello").as_bytes = &[104, 101, 108, 108, 111]
+as_mut_str - String::from("foo").as_mut_str() = "foo" (mutable)
+as_mut_vec - String::from("foo").as_mut_vec() = vec!['f','o','o']
+as_str - String::from("foo").as_str() = "foo" /* &str type
+capacity - String::from("foo").capacity() = CAPACITY /* it's not the length, capacity is higher
+clear - String::from("foo").clear() = '' /* len is zero
+drain - let a = String::from("goonery"); let b = a.drain(4).collect(); Divides the strings; b pops from a; the remainder is in a, the original
+extend_from_within - 
+from_raw_parts - String::from_raw_parts(ptr, len, capacity); 
+from_utf16 - String::from_utf16(&[0xD834, 0xDD1E, 0x006d, 0x0075,
+          0x0073, 0x0069, 0x0063]).unwrap() = "𝄞music"
+from_utf16_lossy - same as above, but invalid data gets (U+FFFD)
+from_utf8 - String::from_utf8(vec![240, 159, 146, 150];
+).unwrap() = "💖"
+from_utf8_lossy - same as above
+from_utf8_unchecked - unsafe version of from_utf8
+insert - let s = String::with_capacity(3); s.insert(0,"g"); s = "g"
+insert_str - let mut s = String::from("bar"); s.insert_str(0, "foo"); s = "foobar"
+into_boxed_str - let s = String::from("hello"); let b = s.into_boxed_str(); /*removes capacity*/
+into_bytes - let s = String::from("hello"); let bytes = s.into_bytes(); bytes = &[104, 101, 108, 108, 111][..]
+into_raw_parts - String::from("foo").into_raw_parts() = (ptr,len_cap) /* Tuple Destructuring
+is_empty - String::new().is_empty() = true
+len - String::from("goonery").len() = 7
+new - yes
+pop - String::from("goonery").pop() = 'y' ... 'r' ... 'e' ... 'n' (variable is Goon)
+push - String::from("goonery").push("s") = "goonerys"
+push_str - String::from("goonery").push_str("man") = "gooneryman"
+remove - String::from("goonery").remove(0) = "g"; if there's it's s.remove(), it's now "oonery"
+remove_matches - String::from("goonery goon").remove_matches("goo") = "nery n"
+replace_range - String::from("goonery chunk goonery").replace_range((0..7),"machine cage") = "machine cage chunk goonery"
+reserve - String::new().reserve(15); makes the capacity into 15
+reserve_exact - String::new().reserve_exact(15); conditionally raises the capacity. If capacity is higher than parameter, nothing changes
+retain - String::from("goonery").retain(|x| x!='o') = "gnery"
+shrink_to - String::from("goonery").shrink_to(12); LOWERS THE CAPACITY. if param is lower than the length
+shrink_to_fit - String::from("goonery").shrink_to_fit(); Capacity is now the length
+split_off - let right = left.split_off(5); You can probably guess
+truncate - String::from("goonery").truncate("4") = "goon"
+try_reserve - String::from("goonery").try_reserve(3); Returns an error if it doesn't reserve. I wouldn't mess with this method
+try_reserve_exact - Look above
+with_capacity - String::with_capacity(20); make new string with this capacity. Reminiscent of C methods, but with the string object
+
+
+Deref String????? 
+ 
+as_ptr - String::from("goonery").as_ptr(); returns the pointer of a string
+bytes - "goonery".bytes() = (iterator of bytes like b'g', b'o', b'o', b'n')
+char_indices - "goonery".char_indices() = [Some((1,"g")),Some((2,"o")),.........] (iterator); Think of enumerate!
+chars - "goonery".chars() - Iterator like Some("g"), Some("o") ..... 
+contains - "goonery".contains("goon") = true
+encode_utf16 - "goonery".encode_utf16() = (returns an iterator of utf characters)
+ends_with - "goonery".ends_with("nery") = true
+eq_ignore_ascii_case - "goonery".eq_ignore_ascii_case("GooNERY") = true
+escape_debug - Return an iterator that escapes each char in self with char::escape_debug. VERY UNCLEAR
+escape_default - Very unclear
+escape_unicode - Unclear
+find - "goonery".find("n") = Some(3)
+get - "goonery".get(0..3) = "goon"; A lot like substr in other languages!
+get_mut - "goonery".get_mut(0..3) = "goon"; Mutable
+get_unchecked - Similar to get, but unsafe. I see no reason to use this
+get_unchecked_mut - See above
+is_ascii - "goonery".is_ascii() = true
+is_char_boundary - "goonery goonery".is_char_boundary(6) = true; if it there is a space before or after, it's TRUE. If index is "inland", it's false.
+is_empty - "goonery".is_empty() = false
+len - "goonery".len() = 8; If you want the true count, it's "goonery".chars().count()
+lines - "goonery\nya\ya\yee\n".lines() = (iterator of each word wrapped in Some())
+lines_any - Just like above but deprecated
+make_ascii_lowercase - "GOONERY".make_ascii_lowercase() = "goonery"; Leave foreign characters alone
+make_ascii_uppercase - no need to do this
+match_indices - "abcXXXabcYYYabc".match_indices("abc").collect(); [(0, "abc"), (6, "abc"), (12, "abc")]
+matches -  "1abc2abc3".matches(char::is_numeric).collect(); ["1", "2", "3"]
+parse - "4".parse().unwrap() = 4; Use "turbofish" generics if you're not explicitly identifying the type in String
+repeat - "goonery".repeat(3) = "goonerygoonerygoonery"; like "goonery" * 3 in python
+replace - "goonery".replace("goon","pell") = "pellery"
+replacen - "goonery".replacen("o","e",1) = "geonery"; replace once or the number in the params
+rfind - "goonery".rfind("r") = Some(1)
+rmatch_indices - "abcXXXabcYYYabc".rmatch_indices("abc").collect() = [(12, "abc"), (6, "abc"), (0, "abc")]
+rmatches - "1abc2abc3".rmatches(char::is_numeric).collect() = ["3", "2", "1"]
+rsplit -  "Mary had a little lamb".rsplit(' ').collect() = ["lamb", "little", "a", "had", "Mary"]
+rsplit_once - "cfg=foo=bar".rsplit_once('=') = Some(("cfg=foo", "bar"))
+rsplit_terminator - Equivalent to split, except that the trailing substring is skipped if empty. I don't care much about this method.
+rsplitn - 
+slice_mut_unchecked - 
+slice_unchecked - 
+split - 
+split_ascii_whitespace - 
+split_at - 
+split_at_mut - 
+split_inclusive - 
+split_once - 
+split_terminator - 
+split_whitespace - 
+splitn - 
+starts_with - 
+strip_prefix - 
+strip_suffix - 
+to_ascii_lowercase - 
+to_ascii_uppercase - 
+to_lowercase - 
+to_uppercase - 
+trim - 
+trim_end - 
+trim_end_matches - 
+trim_left - 
+trim_left_matches - 
+trim_matches - 
+trim_right - 
+trim_right_matches - 
+trim_start - 
+trim_start_matches - 
