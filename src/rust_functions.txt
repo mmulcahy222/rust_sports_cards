@@ -70,11 +70,6 @@ try_for_each - An iterator method that applies a fallible function to each item 
 unzip - let (left, right): (Vec<_>, Vec<_>) = [(1, 2), (3, 4)].iter().cloned().unzip() --- left = [1,3], right = [2,4]
 zip - let mut iter = [1, 2, 3].iter().zip([4, 5, 6].iter()) = Some((&1, &4)), Some((&2, &5)), Some((&3, &6)), None
 
-
-
-
-
-
 Option
 
 and - Some(2).and(None) = None, Some(5),and(Some(8)) = Some(8)
@@ -117,20 +112,6 @@ unwrap_unchecked - Returns the contained Some value, consuming the self value, w
 xor - Some(4).xor(None) = Some(4) (If different, SOME is returned. If SAME, it's false)
 zip - Some(5).zip(Some(6)) = Some((5,6))
 zip_with - Some(5).zip_with(Some(6),|x,y| Point{x,y})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 String
 
@@ -214,32 +195,32 @@ rmatches - "1abc2abc3".rmatches(char::is_numeric).collect() = ["3", "2", "1"]
 rsplit -  "Mary had a little lamb".rsplit(' ').collect() = ["lamb", "little", "a", "had", "Mary"]
 rsplit_once - "cfg=foo=bar".rsplit_once('=') = Some(("cfg=foo", "bar"))
 rsplit_terminator - Equivalent to split, except that the trailing substring is skipped if empty. I don't care much about this method.
-rsplitn - 
-slice_mut_unchecked - 
+rsplitn - "Mary had a little lamb".rsplitn(3, ' ').collect() = ["lamb", "little", "Mary had a"]
+slice_mut_unchecked - Fuck unchecked. Use get_mut_unchecked instead.
 slice_unchecked - 
-split - 
-split_ascii_whitespace - 
-split_at - 
-split_at_mut - 
-split_inclusive - 
-split_once - 
-split_terminator - 
-split_whitespace - 
-splitn - 
-starts_with - 
-strip_prefix - 
-strip_suffix - 
-to_ascii_lowercase - 
-to_ascii_uppercase - 
-to_lowercase - 
-to_uppercase - 
-trim - 
-trim_end - 
-trim_end_matches - 
-trim_left - 
-trim_left_matches - 
-trim_matches - 
-trim_right - 
-trim_right_matches - 
-trim_start - 
-trim_start_matches - 
+split - "Mary had a little lamb".split(' ').collect() = ["Mary", "had", "a", "little", "lamb"]; Split returns an iterator; The collected data type was a Vec<&str>
+split_ascii_whitespace - "A few words".split_ascii_whitespace() = iterator; as opposed to unicode whitespace
+split_at - let (first, last) = "Per Martin-Löf".split_at(3); 
+split_at_mut - Mutable version of above
+split_inclusive - "Mary had a little lamb\nlittle lamb\nlittle lamb.".split_inclusive('\n').collect() = "Mary had a little lamb\n", "little lamb\n", "little lamb."]; DELIMITER STILL THERE
+split_once - "cfg=foo=bar".split_once('=') = Some(("cfg", "foo=bar"))
+split_terminator - "A..B..".split_terminator(".").collect() = ["A", "", "B", ""]; Maybe this applies to strings as delimiters
+split_whitespace -  "A few words".split_whitespace(); Including unicode & ascii whitespace
+splitn -  "Mary had a little lambda".splitn(3, ' ').collect() = ["Mary", "had", "a little lambda"]
+starts_with - "goonery".starts_with("goon") = true
+strip_prefix - "foo:bar".strip_prefix("foo:") = Some("bar")
+strip_suffix - "bar:foo".strip_suffix(":foo") = Some("bar")
+to_ascii_lowercase - "GOONERY".to_ascii_lowercase() = "goonery"
+to_ascii_uppercase - "goonery".to_ascii_lowercase() = "GOONERY"
+to_lowercase - "GOONERY".to_ascii_lowercase() = "goonery"
+to_uppercase - "goonery".to_ascii_lowercase() = "GOONERY"
+trim - "    Hello\tWorld    ".trim() = "Hello\tworld"
+trim_end - "     Hello\tworld\t".trim_end() = " Hello\tworld"
+trim_end_matches - "1fooX".trim_end_matches(|c| c == '1' || c == 'X') = "1foo"; NOTE- the param can be a character or a closure/lambda
+trim_left - You get the idea
+trim_left_matches - You get the idea
+trim_matches - You get the idea
+trim_right - You get the idea
+trim_right_matches - You get the idea
+trim_start - You get the idea
+trim_start_matches - You get the idea
